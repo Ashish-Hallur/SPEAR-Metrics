@@ -366,19 +366,6 @@ For a generated speech response or dialogue segment:
 - The scripts contain hard-coded lab paths and may need light path refactoring before reuse on a new machine.
 - The notebooks may contain executed outputs from the original environment; for clean reproduction, restart kernels and rerun after updating paths.
 
-## Citation
-
-I could not find public venue metadata from the repository contents or web search. If you use this repository, cite the accompanying paper once the final venue metadata is available. Until then:
-
-```bibtex
-@misc{hallur2026distributional,
-  title = {Distributional Baselines for Conversational Prosody and Rhythm},
-  author = {Hallur, Ashish G. and Thebaud, Thomas and Ravichandran, Venkatesh and Tinchev, Georgi and Moro-Velazquez, Laureano},
-  year = {2026},
-  note = {Manuscript included with SPEAR-Metrics}
-}
-```
-
 ## License
 
 This project is released under the MIT License. See `LICENSE`.
