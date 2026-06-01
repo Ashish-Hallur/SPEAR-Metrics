@@ -2,8 +2,6 @@
 
 SPEAR-Metrics contains the extraction and analysis code used for large-scale speech-native evaluation baselines over the Seamless Interaction corpus. It focuses on conversational signals that text-only evaluation misses: pitch behavior, speaking rhythm, pausing, and lexical properties of ASR-aligned transcripts.
 
-The accompanying manuscript is included as `InterSpeech_Submission.pdf` and `final.tex`:
-
 > Distributional Baselines for Conversational Prosody and Rhythm  
 > Ashish G. Hallur, Thomas Thebaud, Venkatesh Ravichandran, Georgi Tinchev, and Laureano Moro-Velazquez
 
@@ -23,8 +21,6 @@ The paper analyzes 4,000+ hours of dyadic English conversation and derives refer
 .
 |-- README.md
 |-- LICENSE
-|-- InterSpeech_Submission.pdf
-|-- final.tex
 |-- all_wavs.txt
 |-- master_figures_V5.ipynb
 |-- Prosodic/
