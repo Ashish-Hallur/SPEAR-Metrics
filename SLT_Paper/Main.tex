@@ -20,7 +20,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Reference-Based Prosody and Rhythm Diagnostics for Speech-to-Speech Dialogue Evaluation\\
+\title{Reference-Based Prosody and Rhythm Evaluation for Speech-to-Speech Dialogue Systems\\
 \thanks{This work was supported by the SPEAR project. Add full funding acknowledgments before submission.}
 }
 
@@ -34,16 +34,16 @@
 \maketitle
 
 \begin{abstract}
-Speech-to-speech (S2S) AI agents are advancing rapidly, yet evaluation lacks interpretable speech-native diagnostics for conversational prosody and rhythm. 
+Speech-to-speech (S2S) AI agents are advancing rapidly, yet evaluation lacks interpretable speech-native measures for conversational prosody and rhythm. 
 Because $F_0$, speaking rate, articulation rate, and pausing shift with model-predicted speaker traits and interaction state, pooled human statistics can be poorly calibrated for evaluating a particular output.
 Using 4000+ hours of dyadic English conversation from the Seamless Interaction dataset, we construct matched reference regimes for $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration.
-We then define a percentile-based diagnostic protocol: extract the same metrics from an S2S output waveform, compare them to the closest matched human reference stratum, and report percentile deviations or 5th--95th percentile out-of-regime flags.
+We then define a percentile-based evaluation protocol: extract the same metrics from an S2S output waveform, compare them to the closest matched human reference stratum, and report percentile deviations or 5th--95th percentile out-of-regime flags.
 On held-out human rows, pooled references over-flag state-conditioned $F_0$ expressivity and rhythm, while matched references return flag rates closer to the nominal 10\% and make deviation direction interpretable.
-These diagnostics serve as behavioral plausibility checks that complement, rather than replace, perceptual and user-centered evaluation.
+These outputs serve as behavioral plausibility checks that complement, rather than replace, perceptual and user-centered evaluation.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Speech-to-Speech Evaluation, Reference-Based Diagnostics, Conversational Prosody, Conversational Rhythm, Behavioral Plausibility
+Speech-to-Speech Evaluation, Reference-Based Evaluation, Conversational Prosody, Conversational Rhythm, Behavioral Plausibility
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -65,12 +65,12 @@ Recent work also shows that conversational speech behaviors are context dependen
 Prior work has often examined prosody and timing in isolation or at a limited scale, leaving a gap in large-scale, multidimensional reference regimes for conversational speech technology. 
 This gap is limiting for spoken dialogue evaluation, where a system may fall inside a pooled range while still producing prosody or timing that is implausible for the relevant speaker profile or interactional state.
 
-We frame large-scale conversational distributions as an operational diagnostic resource rather than as descriptive baselines alone. 
+We frame large-scale conversational distributions as an operational evaluation resource rather than as descriptive baselines alone. 
 Using robust percentile-based $F_0$ measures and rhythm metrics from over 4{,}000 hours of English dyadic conversation, we make four contributions. 
 First, we construct matched reference regimes for conversational $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration. 
 Second, we show that pooled references can obscure systematic shifts associated with model-predicted sex label, model-predicted age bin, arousal, and dominance \cite{wynn_conversational_2024, traunmuller_acoustic_2000}. 
-Third, we define a simple diagnostic procedure that extracts the same metrics from an S2S output waveform and reports percentile deviations or out-of-regime flags relative to the closest matched human reference stratum. 
-Fourth, we provide reproducible reference tables and an extraction/comparison protocol for speech-native behavioral plausibility diagnostics in spoken dialogue systems.
+Third, we define a simple evaluation procedure that extracts the same metrics from an S2S output waveform and reports percentile deviations or out-of-regime flags relative to the closest matched human reference stratum. 
+Fourth, we provide reproducible reference tables and an extraction/comparison protocol for speech-native behavioral plausibility checks in spoken dialogue systems.
 
 \section{Methods}
 
@@ -135,8 +135,8 @@ Chronological age has been linked to systematic differences in conversational ti
 Arousal and dominance provide continuous proxies for interactional state that modulate prosodic expressivity and temporal pacing in natural speech \cite{banziger_role_2005, pell_emotional_2011, banse1996acoustic}. 
 In preliminary screening across available model-conditioned speaker traits and interaction-state variables, these four factors produced the most consistent and interpretable shifts in the prosodic and temporal distributions studied here, and we therefore center them in a compact, evaluation-oriented analysis.
 
-\subsection{Pooled vs. Matched Diagnostic Check}
-To test whether matched regimes improve diagnostic calibration, we split speaker-channel rows into deterministic participant-held-out calibration and evaluation sets. 
+\subsection{Pooled vs. Matched Evaluation Check}
+To test whether matched regimes improve evaluation calibration, we split speaker-channel rows into deterministic participant-held-out calibration and evaluation sets. 
 For each metric, we estimate 5th--95th percentile thresholds from the calibration split under two references: a pooled reference using all usable calibration rows, and a matched reference using the relevant stratum. 
 We match mean $F_0$ by model-predicted sex label and match $F_0$ expressivity and temporal metrics by arousal or dominance sextile. 
 We then report the held-out evaluation percentage falling outside each interval; a calibrated 5th--95th percentile reference should flag approximately 10\% of human conversational rows.
@@ -234,7 +234,7 @@ Mean pause dur.   & 0.592  & 0.568  & 0.136  & negligible \\
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{l r r r}
 \toprule
-\textbf{Diagnostic group} & \textbf{Eval. $N$} & \textbf{Pooled} & \textbf{Matched} \\
+\textbf{Evaluation group} & \textbf{Eval. $N$} & \textbf{Pooled} & \textbf{Matched} \\
  & & \textbf{flag \%} & \textbf{flag \%} \\
 \midrule
 Male mean $F_0$         & 32{,}373 & 9.88  & 12.06 \\
@@ -274,7 +274,7 @@ We summarize the operating regimes of conversational prosody and rhythm and quan
 Throughout, $N$ denotes the number of usable speaker-channel samples satisfying the subset criteria for a given figure/table, and hours denote total speech duration aggregated over those usable samples (reported as interaction-time). 
 We use the term ``expressivity'' to jointly refer to the range and standard deviation of $F_0$.
 Table~\ref{tab:pooled_regimes_single} reports pooled reference ranges, Table~\ref{tab:sex_label_effects} summarizes two-group model-predicted sex-label effects, Table~\ref{tab:state_age_effects} summarizes continuous state (arousal, dominance) and model-predicted age-bin effects, and Table~\ref{tab:naturalistic_improvised} checks whether the Naturalistic and Improvised portions of Seamless Interaction require separate treatment. 
-Table~\ref{tab:pooled_matched_flags} gives the diagnostic consequence of these shifts: pooled references substantially over-flag low- and high-state $F_0$ expressivity, while matched references return held-out human rows close to the nominal 10\% flag rate. 
+Table~\ref{tab:pooled_matched_flags} gives the evaluation consequence of these shifts: pooled references substantially over-flag low- and high-state $F_0$ expressivity, while matched references return held-out human rows close to the nominal 10\% flag rate. 
 Since the corpus is large, we report effect sizes in addition to significance tests: for two-group comparisons we use the Mann--Whitney $U$ test with Cliff's $\delta$ to quantify distributional separation without assuming normality \cite{cliff1993dominance}; for continuous co-variates (arousal, dominance) we use Spearman rank correlation $\rho$ to capture monotonic associations robustly \cite{spearman1961proof}; and for age-bin comparisons we use the Kruskal--Wallis test with $\epsilon^2$ as an effect size for multi-group differences \cite{kruskal1952use, tomczak2014need}. 
 The subset comparison shows negligible temporal differences and only small $F_0$ differences (maximum $|\delta|=0.278$), which are much weaker than the dominant speaker- and state-conditioned shifts; we therefore pool these subsets for the main reference characterization.
 
@@ -318,11 +318,11 @@ Model-predicted age bin further shifts temporal regimes in a way that matters op
 % The "trap" here, that we cannot solve (so you need to leave it as it is) is that you really don't have age annotation in this dataset and these conclusions just describe the way the VoxProfile models are behaving, not necessarily humans. Although if we assume that VoxProfile was well trained, the ideas will be valid. We might want to add a comment like this at the end of the paper, somewhere, if we have space.
 Figure~\ref{fig:age_effects} shows that model-predicted age bins are associated with changes in speech rate and pause ratio, implying that timing targets should not be treated as universal across this operational stratifier. 
 This result complements prior conversation analyses showing that timing patterns can index participation style and interactional dynamics \cite{campbell2008individual}. 
-For conversational systems, the practical implication is that timing-based diagnostics should evaluate pace and pausing jointly, and condition on model-predicted age bin when that stratifier is available.  
+For conversational systems, the practical implication is that timing-based evaluation should assess pace and pausing jointly, and condition on model-predicted age bin when that stratifier is available.  
 
-\section{Reference-Based Diagnostic Protocol}\label{sec:diagnostic_protocol}
+\section{Reference-Based Evaluation Protocol}\label{sec:evaluation_protocol}
 
-The reference regimes in Section~\ref{sec:regimes} are intended to support a lightweight diagnostic procedure for S2S dialogue outputs. 
+The reference regimes in Section~\ref{sec:regimes} are intended to support a lightweight evaluation procedure for S2S dialogue outputs. 
 Given an output waveform from a spoken dialogue system, the protocol is:
 \begin{enumerate}
     \item Extract the same prosodic and temporal metrics used in this study: $F_0$ mean, $F_0$ SD, $F_0$ range, speech rate, articulation rate, pause ratio, and mean pause duration.
@@ -330,11 +330,11 @@ Given an output waveform from a spoken dialogue system, the protocol is:
     \item Convert each system metric $m$ to a percentile $p_m$ under the selected human reference distribution.
     \item Flag metrics below the 5th percentile or above the 95th percentile as out-of-regime, and report the output as a vector of percentile deviations rather than a single opaque score.
 \end{enumerate}
-This diagnostic report identifies which speech-native dimensions are atypical, the direction of the deviation, and the matched conversational regime under which the deviation was measured. 
-The protocol is therefore a behavioral plausibility diagnostic: it can flag prosodic compression, unusually fast or slow pacing, or atypical pause allocation, but it does not claim to replace human judgments of naturalness or interaction quality.
+This report identifies which speech-native dimensions are atypical, the direction of the deviation, and the matched conversational regime under which the deviation was measured. 
+The protocol is therefore a behavioral plausibility check: it can flag prosodic compression, unusually fast or slow pacing, or atypical pause allocation, but it does not claim to replace human judgments of naturalness or interaction quality.
 
 \section{Limitations}\label{sec:limitations}
-This framework provides behavioral plausibility diagnostics rather than a validated perceptual naturalness model. 
+This framework provides behavioral plausibility checks rather than a validated perceptual naturalness model. 
 The reference regimes and conditioning effects do not yet map deviations to perceptual thresholds or user-rated interaction quality. 
 Results are derived from a single English dyadic corpus. 
 Operating regions may shift with language, domain, recording conditions, and interaction setting. 
