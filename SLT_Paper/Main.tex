@@ -36,8 +36,8 @@ Email: ahallur1@jhu.edu}
 
 \begin{abstract}
 Speech-to-speech (S2S) AI agents are advancing rapidly, yet evaluation lacks interpretable speech-native measures for conversational prosody and rhythm. 
-Because $F_0$, speaking rate, articulation rate, and pausing shift with model-predicted speaker traits and interaction state, pooled human statistics can be poorly calibrated for evaluating a particular output.
-Using 4000+ hours of dyadic English conversation from the Seamless Interaction dataset, we construct matched reference regimes for $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration.
+Since $F_0$, speaking rate, articulation rate, and pausing shift with model-predicted speaker traits and interaction state, pooled human statistics can be poorly calibrated for evaluating a particular output.
+Using 4000+ hours of dyadic English conversation from the Seamless Interaction dataset, we construct matched reference regimes for $F_0$ mean, standard deviation and range, speech rate, articulation rate, pause ratio, and mean pause duration.
 We then define a percentile-based evaluation protocol: extract the same metrics from an S2S output waveform, compare them to the closest matched human reference stratum, and report percentile deviations or 5th--95th percentile out-of-regime flags.
 On held-out human rows, pooled references over-flag state-conditioned $F_0$ expressivity and rhythm, while matched references return flag rates closer to the nominal 10\% and make deviation direction interpretable.
 These outputs serve as behavioral plausibility checks that complement, rather than replace, perceptual and user-centered evaluation.
@@ -52,7 +52,7 @@ Speech-to-Speech Evaluation, Reference-Based Evaluation, Conversational Prosody,
 Spoken conversation is a highly coordinated form of communication, where interlocutors manage turn-taking while continuously adapting prosody and timing to the unfolding interaction \cite{riest_anticipation_2015, levinson_turn-taking_2016}. 
 Despite this complexity, transitions are typically smooth and supported by systematic cues, including prosodic and syntactic structure \cite{koiso_analysis_1998}.
 Speech technology has progressed toward S2S AI agents capable of producing fluent spoken responses. 
-Evaluation, however, is still dominated by text-based measures, task success, or subjective ratings, which do not directly quantify speech-native interactional behavior. 
+Evaluation, however, is still dominated by text-based measures, task success, or subjective ratings, which do not always objectively quantify speech-native interactional behavior. 
 Systems trained primarily on read speech often fail to reproduce properties characteristic of spontaneous dialogue \cite{omahony_combining_2022}.
 
 Conversational speech differs from read speech across multiple dimensions, including prosodic range and stress realization \cite{howell1991comparison, hazan2010does}. 
@@ -61,7 +61,7 @@ These patterns align with accounts of dialogue as adaptive coordination, where s
 
 Prosodic variation, particularly fundamental frequency ($F_0$), encodes communicative intent, emotion, and discourse structure, and interacts with prominence and stress cues \cite{banziger_role_2005, pell_emotional_2011, xu_speech_2005, sluijter_acoustic_1996, sluijter_spectral_1996}. 
 Temporal structure is central to conversational timing, with systematic patterns in pausing and speaking rate \cite{goldman1958speech, pellegrino_automatic_2004, pellegrino_across-language_2011, jiao_estimating_2015, morgan_combining_1998, nanjo_language_2004}. 
-Recent work also shows that conversational speech behaviors are context dependent, motivating analyses that explicitly condition on interaction factors \cite{wynn_conversational_2024}.
+Recent work also shows that conversational speech behaviors are context-dependent, motivating analyses that explicitly condition on interaction factors \cite{wynn_conversational_2024}.
 
 Prior work has often examined prosody and timing in isolation or at a limited scale, leaving a gap in large-scale, multidimensional reference regimes for conversational speech technology. 
 This gap is limiting for spoken dialogue evaluation, where a system may fall inside a pooled range while still producing prosody or timing that is implausible for the relevant speaker profile or interactional state.
