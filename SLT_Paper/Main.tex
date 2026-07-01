@@ -23,24 +23,24 @@
 \begin{document}
 
 \title{Reference-Based Prosody and Rhythm Evaluation for Spoken Dialogue Systems\\
-\thanks{This work was supported by the SPEAR project. Add full funding acknowledgments before submission.}
+\thanks{This work was supported by the ***** project. Full funding acknowledgments to be added before final submission.}
 }
 
-% \author{Anonymized submission to IEEE SLT 2026}
-\author{\IEEEauthorblockN{Ashish Hallur\IEEEauthorrefmark{1}, Thomas Thebaud\IEEEauthorrefmark{1}, Georgi Tinchev\IEEEauthorrefmark{2}, Venkatesh Ravichandran\IEEEauthorrefmark{2}, Laureano Moro-Velazquez\IEEEauthorrefmark{1}}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Department of Electrical and Computer Engineering, Johns Hopkins University}, Baltimore, MD, USA\\
-Email: ahallur1@jhu.edu}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Amazon Inc.}, Seattle, WA, USA}}
+\author{Anonymized submission to IEEE SLT 2026}
+% \author{\IEEEauthorblockN{Ashish Hallur\IEEEauthorrefmark{1}, Thomas Thebaud\IEEEauthorrefmark{1}, Georgi Tinchev\IEEEauthorrefmark{2}, Venkatesh Ravichandran\IEEEauthorrefmark{2}, Laureano Moro-Velazquez\IEEEauthorrefmark{1}}
+% \IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Department of Electrical and Computer Engineering, Johns Hopkins University}, Baltimore, MD, USA\\
+% Email: ahallur1@jhu.edu}
+% \IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Amazon Inc.}, Seattle, WA, USA}}
 
 \maketitle
 
 \begin{abstract}
 Speech-to-speech (S2S) AI agents are advancing rapidly, yet evaluation lacks interpretable speech-native measures for conversational prosody and rhythm. 
-Since $F_0$, speaking rate, articulation rate, and pausing shift with model-predicted speaker traits and interaction state, pooled human statistics can be poorly calibrated for evaluating a particular output.
+Since Fundamental Frequency ($F_0$), speech rate, and pausing vary with model-conditioned speaker labels and interaction-state scores, pooled human statistics can be poorly calibrated for evaluating outputs intended for a particular conversational regime.
 Using 4000+ hours of dyadic English conversation from the Seamless Interaction dataset, we construct matched reference regimes for $F_0$ mean, standard deviation and range, speech rate, articulation rate, pause ratio, and mean pause duration.
 We then define a percentile-based evaluation protocol: extract the same metrics from an S2S output waveform, compare them to the closest matched human reference stratum, and report percentile deviations or 5th--95th percentile out-of-regime flags.
 On held-out human rows, pooled references over-flag state-conditioned $F_0$ expressivity and rhythm, while matched references return flag rates closer to the nominal 10\% and make deviation direction interpretable.
-These outputs serve as behavioral plausibility checks that complement, rather than replace, perceptual and user-centered evaluation.
+These outputs serve as behavioral plausibility checks for prosody and rhythm that complement, rather than replace, perceptual and user-centered evaluation.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -52,8 +52,8 @@ Speech-to-Speech Evaluation, Reference-Based Evaluation, Conversational Prosody,
 Spoken conversation is a highly coordinated form of communication, where interlocutors manage turn-taking while continuously adapting prosody and timing to the unfolding interaction \cite{riest_anticipation_2015, levinson_turn-taking_2016}. 
 Despite this complexity, transitions are typically smooth and supported by systematic cues, including prosodic and syntactic structure \cite{koiso_analysis_1998}.
 Speech technology has progressed toward S2S AI agents capable of producing fluent spoken responses. 
-Evaluation, however, is still dominated by text-based measures, task success, or subjective ratings, which do not always objectively quantify speech-native interactional behavior. 
-Systems trained primarily on read speech often fail to reproduce properties characteristic of spontaneous dialogue \cite{omahony_combining_2022}.
+Evaluation, however, often relies on text-based measures, task success, or subjective ratings, which provide limited direct diagnostics of speech-native interactional behavior. 
+Systems trained primarily on read speech may underrepresent properties characteristic of spontaneous dialogue \cite{omahony_combining_2022}.
 
 Conversational speech differs from read speech across multiple dimensions, including prosodic range and stress realization \cite{howell1991comparison, hazan2010does}. 
 Temporal organization varies with context and listener demands, shaping speaking rate and rhythmic structure \cite{tauroza_speech_1990, ward_automatic_2004, dowding_user_2024, xie_speaking_2024}. 
@@ -63,24 +63,24 @@ Prosodic variation, particularly fundamental frequency ($F_0$), encodes communic
 Temporal structure is central to conversational timing, with systematic patterns in pausing and speaking rate \cite{goldman1958speech, pellegrino_automatic_2004, pellegrino_across-language_2011, jiao_estimating_2015, morgan_combining_1998, nanjo_language_2004}. 
 Recent work also shows that conversational speech behaviors are context-dependent, motivating analyses that explicitly condition on interaction factors \cite{wynn_conversational_2024}.
 
-Prior work has often examined prosody and timing in isolation or at a limited scale, leaving a gap in large-scale, multidimensional reference regimes for conversational speech technology. 
+Prior work has often examined prosody and timing in isolation or at a limited scale, leaving a gap in large-scale, multidimensional reference regimes for conversational speech technology \cite{traunmuller_acoustic_2000}. 
 This gap is limiting for spoken dialogue evaluation, where a system may fall inside a pooled range while still producing prosody or timing that is implausible for the relevant speaker profile or interactional state.
 
-We frame large-scale conversational distributions as an operational evaluation resource rather than as descriptive baselines alone. 
+We frame large-scale conversational distributions as descriptive baselines and also an operational evaluation resource. 
 Using robust percentile-based $F_0$ measures and rhythm metrics from over 4{,}000 hours of English dyadic conversation, we make four contributions. 
 First, we construct matched reference regimes for conversational $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration. 
-Second, we show that pooled references can obscure systematic shifts associated with model-predicted sex label, model-predicted age bin, arousal, and dominance \cite{wynn_conversational_2024, traunmuller_acoustic_2000}. 
+Second, we show that pooled references can obscure systematic shifts associated with model-predicted sex label, model-predicted age bin, and model-predicted arousal and dominance scores. 
 Third, we define a simple evaluation procedure that extracts the same metrics from an S2S output waveform and reports percentile deviations or out-of-regime flags relative to the closest matched human reference stratum. 
 Fourth, we provide reproducible reference tables and an extraction/comparison protocol for speech-native behavioral plausibility checks in spoken dialogue systems.
 
 \section{Methods}
 
 \subsection{Dataset}
-We analyze dyadic conversational speech from the Seamless Interaction dataset, a large-scale corpus of face-to-face interactions designed to capture both Naturalistic interactions with untrained participants and Improvised interactions with trained actors. 
+We analyze dyadic conversational speech from the Seamless Interaction dataset, a large-scale corpus of face-to-face interactions designed to capture natural conversational interactions.
 The released dataset contains 4,065.04 hours of interaction time, comprising 64,739 interactions segmented from 5,098 one-hour recording sessions involving 4,284 participants \cite{seamless_interaction}. 
-We use ``interaction'' to refer to a single conversational segment within a session. 
+We use ``interaction'' to refer to one conversational segment within a session. 
 Each interaction yields two speaker channels, and all metrics are computed at the channel level. 
-The dataset includes Naturalistic interactions with untrained participants and Improvised interactions with trained actors, supporting analyses that condition on interaction factors \cite{fusaroli_dialog_2014, wynn_conversational_2024}.
+The dataset includes Naturalistic interactions with untrained participants and Improvised interactions with trained actors, we later quantify whether these subsets differ enough to require separate reference regimes \cite{fusaroli_dialog_2014, wynn_conversational_2024}.
 
 \subsection{Prosodic Metrics}
 Fundamental frequency ($F_0$) is defined only during voiced speech, so each audio signal is analyzed frame-by-frame using the autocorrelation-based $F_0$ estimator in Praat via parselmouth \cite{jadoul2018introducing}. 
@@ -124,23 +124,23 @@ Mean pause duration [s]  & 0.5845 & 0.5225--0.6559 & 0.6058 \\
 
 \subsection{Speaker Trait Annotations (Vox-Profile)}
 \label{sec:voxprofile}
-Since Seamless Interaction does not include ground-truth speaker-trait metadata, we augment Seamless Interactions' metadata with model-conditioned speaker-trait and interaction-state annotations using Vox-Profile, a benchmark and toolchain for characterizing static and dynamic speech traits using speech foundation models \cite{feng2025vox}.
+Since Seamless Interaction does not include ground-truth demographic or affective-state metadata, we augment the corpus with model-conditioned labels and scores from Vox-Profile, a benchmark and toolchain for characterizing static and dynamic speech traits using speech foundation models \cite{feng2025vox}.
 For each speaker-channel waveform, we first resample the audio to 16 kHz and apply Silero VAD \cite{Silero_VAD} to extract speech-only material. 
 We then run two WavLM-based predictors released with Vox-Profile -- a multitask age/sex model and a dimensional emotion model. 
 The age/sex model outputs an age estimate (mapped to model-predicted age bins for analysis) and a binary sex prediction with an associated posterior probability, as the original dataset does not provide these speaker traits, while the emotion model outputs continuous arousal, valence, and dominance scores in $[0,1]$.
 Vox-Profile reports high performance for sex classification (97.7\% acc., macro-F1 0.971) and moderate performance for age-bin prediction (67.6\% acc., macro-F1 0.624) \cite{feng2025vox}.
 
 We focus on model-predicted sex label, model-predicted age bin, arousal, and dominance as stratification variables because they capture complementary, operationally relevant sources of variation for conversational prosody and rhythm. 
-Model-predicted sex label is expected to strongly track habitual $F_0$-related statistics associated with anatomical and physiological voice differences \cite{traunmuller_acoustic_2000, titze_toward_1994}. 
-Chronological age has been linked to systematic differences in conversational timing and fluency-related measures such as speaking rate and pausing, motivating the use of model-predicted age bin as an operational stratifier \cite{tauroza_speech_1990, goldman1958speech, goldman1961significance}. 
+Model-predicted sex label is used as an operational stratifier for habitual $F_0$ differences, which are known to vary with vocal anatomy and physiology \cite{traunmuller_acoustic_2000, titze_toward_1994}. 
+Chronological age has been linked to systematic differences in conversational timing and fluency-related measures such as speaking rate and pausing\cite{tauroza_speech_1990, goldman1958speech, goldman1961significance}, but here, model-predicted age bin serves only as an operational proxy for testing whether such stratification may be useful. 
 Arousal and dominance provide continuous proxies for interactional state that modulate prosodic expressivity and temporal pacing in natural speech \cite{banziger_role_2005, pell_emotional_2011, banse1996acoustic}. 
-In preliminary screening across available model-conditioned speaker traits and interaction-state variables, these four factors produced the most consistent and interpretable shifts in the prosodic and temporal distributions studied here, and we therefore center them in a compact, evaluation-oriented analysis.
+We focus on these four stratifiers because they produced the clearest and most interpretable distributional shifts in preliminary analyses, and because each is operationally available from the same speech-only annotation pipeline. We do not claim they exhaust all relevant conditioning factors.
 
 \subsection{Pooled vs. Matched Evaluation Check}
-To test whether matched regimes improve evaluation calibration, we split speaker-channel rows into deterministic participant-held-out calibration and evaluation sets. 
-For each metric, we estimate 5th--95th percentile thresholds from the calibration split under two references: a pooled reference using all usable calibration rows, and a matched reference using the relevant stratum. 
+To test whether matched regimes improve evaluation calibration, we ask whether reference intervals estimated from one set of participants assign the expected out-of-regime rate to held-out human conversational rows from unseen participants. 
+For each metric, we estimate 5th--95th percentile thresholds from the calibration split under two references: a pooled reference, which uses all usable calibration rows, and a matched reference, which estimates thresholds only within the relevant speaker or state stratum. 
 We match mean $F_0$ by model-predicted sex label and match $F_0$ expressivity and temporal metrics by arousal or dominance sextile. 
-We then report the held-out evaluation percentage falling outside each interval; a calibrated 5th--95th percentile reference should flag approximately 10\% of human conversational rows.
+We then report the percentage of held-out evaluation rows falling below the 5th percentile or above the 95th percentile. Since the interval covers the central 90\% of the calibration distribution, a well-calibrated reference should flag approximately 10\% of comparable held-out human rows.
 
 \section{Results}\label{sec:regimes}
 
@@ -275,20 +275,20 @@ We summarize the operating regimes of conversational prosody and rhythm and quan
 Throughout, $N$ denotes the number of usable speaker-channel samples satisfying the subset criteria for a given figure/table, and hours denote total speech duration aggregated over those usable samples (reported as interaction-time). 
 We use the term ``expressivity'' to jointly refer to the range and standard deviation of $F_0$.
 Table~\ref{tab:pooled_regimes_single} reports pooled reference ranges, Table~\ref{tab:sex_label_effects} summarizes two-group model-predicted sex-label effects, Table~\ref{tab:state_age_effects} summarizes continuous state (arousal, dominance) and model-predicted age-bin effects, and Table~\ref{tab:naturalistic_improvised} checks whether the Naturalistic and Improvised portions of Seamless Interaction require separate treatment. 
-Table~\ref{tab:pooled_matched_flags} gives the evaluation consequence of these shifts: pooled references substantially over-flag low- and high-state $F_0$ expressivity, while matched references return held-out human rows close to the nominal 10\% flag rate. 
+Table~\ref{tab:pooled_matched_flags} shows the evaluation consequence of these distributional shifts. When state-dependent variation is ignored, pooled references flag too many held-out human rows as atypical, especially for low- and high-state $F_0$ expressivity, but matched references restore flag rates near the nominal 10\% expected from a 5th--95th percentile interval. 
 Since the corpus is large, we report effect sizes in addition to significance tests: for two-group comparisons we use the Mann--Whitney $U$ test with Cliff's $\delta$ to quantify distributional separation without assuming normality \cite{cliff1993dominance}; for continuous co-variates (arousal, dominance) we use Spearman rank correlation $\rho$ to capture monotonic associations robustly \cite{spearman1961proof}; and for age-bin comparisons we use the Kruskal--Wallis test with $\epsilon^2$ as an effect size for multi-group differences \cite{kruskal1952use, tomczak2014need}. 
-The subset comparison shows negligible temporal differences and only small $F_0$ differences (maximum $|\delta|=0.278$), which are much weaker than the dominant speaker- and state-conditioned shifts; we therefore pool these subsets for the main reference characterization.
+The subset comparison shows negligible temporal differences and small $F_0$ differences (maximum $|\delta|=0.278$). Since these effects are weaker than the main speaker- and state-conditioned shifts, we pool Naturalistic and Improvised interactions for the compact reference characterization reported here.
 
 \subsection{Prosodic Regimes}
 We characterize conversational prosody using robust 10--90\% trimmed $F_0$ statistics that summarize $F_0$ mean, SD, and range.
 Figure~\ref{fig:prosody_sex_label} shows that the mean $F_0$ is strongly conditioned by model-predicted sex label, with large distributional separation that makes pooled absolute-$F_0$ targets inappropriate for evaluation. 
-The held-out check in Table~\ref{tab:pooled_matched_flags} shows that pooled mean-$F_0$ flags are also directionally biased: male rows are flagged almost entirely below the pooled interval (9.8\% low vs. 0.1\% high), while female rows are flagged above it (0.0\% low vs. 8.6\% high). 
+For mean $F_0$, the total pooled flag rate is near 10\%, but the errors are directionally biased: male rows are flagged almost entirely below the pooled interval (9.8\% low vs. 0.1\% high), whereas female rows are flagged above it (0.0\% low vs. 8.6\% high). Thus, even when the aggregate flag rate appears calibrated, the pooled reference gives a misleading interpretation of deviation direction. 
 This aligns with long-standing evidence that anatomical/physiological differences yield distinct habitual $F_0$ regimes across speakers \cite{traunmuller_acoustic_2000, titze_toward_1994}.
 
 Beyond this baseline conditioning, Figures~\ref{fig:prosody_arousal} and \ref{fig:prosody_dominance} show a consistent scaling of prosodic expressivity with interactional state. 
 In particular, $F_0$ SD and $F_0$ range increase monotonically across arousal and dominance sextiles obtained with VoxProfile. 
 This matches prior work showing that natural speech tends to use a wider $F_0$ bandwidth in higher-activation emotional or interactional states, with larger pitch excursions when speakers are more activated or more socially assertive \cite{banziger_role_2005, banse1996acoustic, geng2020acoustic}. 
-If the $F_0$ produced by a speaker or an S2S dialogue system stays in a narrow-band variation in high-arousal or high-dominance contexts, it may sound constrained or unnatural even when the mean $F_0$ is within a typical range \cite{liu2021multiple}.
+For an S2S dialogue system, unusually narrow $F_0$ variation in high-arousal or high-dominance contexts may therefore indicate prosodic compression, even when mean $F_0$ falls within a typical range \cite{liu2021multiple}.
 Prosodic evaluation should therefore include expressivity-sensitive checks in addition to $F_0$ level, and interpret deviations relative to reference distributions stratified by arousal and dominance \cite{pell_emotional_2011, xu_speech_2005}. 
 In held-out rows, a pooled $F_0$-SD reference flags 21.11\% of low-arousal and 16.07\% of high-arousal samples, whereas arousal-matched references reduce these rates to 10.16\% and 9.54\%, respectively.
 
@@ -315,11 +315,11 @@ This coupled pattern is consistent with classic observations that perceived ``sp
 It also agrees with applied-linguistics evidence that conversational speech rates occupy a bounded range while varying by situation and interaction \cite{tauroza_speech_1990, nishizawa2024authenticity}.
 For high-arousal rows, pooled references flag 15.76\% of speech-rate samples and 13.18\% of pause-ratio samples, while arousal-matched references reduce these rates to 12.50\% and 10.84\%, respectively (Table~\ref{tab:pooled_matched_flags}).
 
-Model-predicted age bin further shifts temporal regimes in a way that matters operationally for evaluation. 
+Model-predicted age bin is also associated with shifts in temporal regimes, suggesting a possible operational role for age-conditioned timing references when reliable age estimates are available. 
 % The "trap" here, that we cannot solve (so you need to leave it as it is) is that you really don't have age annotation in this dataset and these conclusions just describe the way the VoxProfile models are behaving, not necessarily humans. Although if we assume that VoxProfile was well trained, the ideas will be valid. We might want to add a comment like this at the end of the paper, somewhere, if we have space.
 Figure~\ref{fig:age_effects} shows that model-predicted age bins are associated with changes in speech rate and pause ratio, implying that timing targets should not be treated as universal across this operational stratifier. 
 This result complements prior conversation analyses showing that timing patterns can index participation style and interactional dynamics \cite{campbell2008individual}. 
-For conversational systems, the practical implication is that timing-based evaluation should assess pace and pausing jointly, and condition on model-predicted age bin when that stratifier is available.  
+For conversational systems, the practical implication is that timing-based evaluation should assess pace and pausing jointly, age-conditioned references may be useful when age estimates are reliable and appropriate for the evaluation setting.  
 
 \section{Reference-Based Evaluation Protocol}\label{sec:evaluation_protocol}
 
@@ -327,20 +327,20 @@ The reference regimes in Section~\ref{sec:regimes} are intended to support a lig
 Given an output waveform from a spoken dialogue system, the protocol is:
 \begin{enumerate}
     \item Extract the same prosodic and temporal metrics used in this study: $F_0$ mean, $F_0$ SD, $F_0$ range, speech rate, articulation rate, pause ratio, and mean pause duration.
-    \item Select a reference stratum using the available conditioning variables, such as model-predicted sex label for absolute $F_0$, arousal or dominance bins for $F_0$ expressivity and rhythm, and model-predicted age bin when timing comparisons require it. If a conditioning variable is unavailable, use the coarsest applicable reference and report that comparison scope explicitly.
+    \item Select a reference stratum using the available conditioning variables, such as model-predicted sex label for absolute $F_0$, arousal or dominance bins for $F_0$ expressivity and rhythm, and model-predicted age bin when timing comparisons require it. If a conditioning variable is unavailable or unreliable, use the coarsest applicable reference and report that comparison scope explicitly.
     \item Convert each system metric $m$ to a percentile $p_m$ under the selected human reference distribution.
     \item Flag metrics below the 5th percentile or above the 95th percentile as out-of-regime, and report the output as a vector of percentile deviations rather than a single opaque score.
 \end{enumerate}
-This report identifies which speech-native dimensions are atypical, the direction of the deviation, and the matched conversational regime under which the deviation was measured. 
+This report identifies which speech-native dimensions are atypical, whether each deviation is below or above the matched human regime, and which conversational stratum was used as the reference. 
 The protocol is therefore a behavioral plausibility check: it can flag prosodic compression, unusually fast or slow pacing, or atypical pause allocation, but it does not claim to replace human judgments of naturalness or interaction quality.
 
 \section{Limitations}\label{sec:limitations}
 This framework provides behavioral plausibility checks rather than a validated perceptual naturalness model. 
-The reference regimes and conditioning effects do not yet map deviations to perceptual thresholds or user-rated interaction quality. 
+The reference regimes and conditioning effects do not yet establish perceptual thresholds, nor do they map percentile deviations directly to user-rated naturalness or interaction quality. 
 Results are derived from a single English dyadic corpus. 
 Operating regions may shift with language, domain, recording conditions, and interaction setting. 
 Model-predicted age bin, arousal, dominance, and sex label are derived from Vox-Profile rather than ground-truth speaker-trait metadata, so observed stratification effects should be interpreted as model-conditioned annotations and validated against ground-truth metadata where available.
-The analysis uses a binary sex label predicted from voice and hence does not model non-binary or self-identified identity categories.
+The analysis uses a binary sex label predicted from voice, this label is an acoustic-model output and does not represent self-identified gender or non-binary identity categories.
 Future work should validate these regimes against human judgments and system outputs across multiple datasets and languages.
 
 \section*{Acknowledgment}
