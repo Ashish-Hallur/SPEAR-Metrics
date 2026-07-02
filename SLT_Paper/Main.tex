@@ -23,7 +23,7 @@
 \begin{document}
 
 \title{Reference-Based Prosody and Rhythm Evaluation for Spoken Dialogue Systems\\
-\thanks{This work was supported by the ***** project. Full funding acknowledgments to be added before final submission.}
+\thanks{Full funding acknowledgments will be added after acceptance.}
 }
 
 \author{Anonymized submission to IEEE SLT 2026}
@@ -52,7 +52,7 @@ Speech-to-Speech Evaluation, Reference-Based Evaluation, Conversational Prosody,
 Spoken conversation is a highly coordinated form of communication, where interlocutors manage turn-taking while continuously adapting prosody and timing to the unfolding interaction \cite{riest_anticipation_2015, levinson_turn-taking_2016}. 
 Despite this complexity, transitions are typically smooth and supported by systematic cues, including prosodic and syntactic structure \cite{koiso_analysis_1998}.
 Speech technology has progressed toward S2S AI agents capable of producing fluent spoken responses. 
-Evaluation, however, often relies on text-based measures, task success, or subjective ratings, which provide limited direct diagnostics of speech-native interactional behavior. 
+Evaluation, however, often relies on text-based measures, task success, or subjective ratings, which provide limited direct measures of speech-native interactional behavior. 
 Systems trained primarily on read speech may underrepresent properties characteristic of spontaneous dialogue \cite{omahony_combining_2022}.
 
 Conversational speech differs from read speech across multiple dimensions, including prosodic range and stress realization \cite{howell1991comparison, hazan2010does}. 
@@ -334,14 +334,43 @@ Given an output waveform from a spoken dialogue system, the protocol is:
 This report identifies which speech-native dimensions are atypical, whether each deviation is below or above the matched human regime, and which conversational stratum was used as the reference. 
 The protocol is therefore a behavioral plausibility check: it can flag prosodic compression, unusually fast or slow pacing, or atypical pause allocation, but it does not claim to replace human judgments of naturalness or interaction quality.
 
+
+\section{Human-Rated Sanity Check}\label{sec:human_eval_check}
+
+As a small external check, we applied the protocol to human-rated dyads from TRACE \cite{TRACE}, which includes original Seamless conversations and EmotiVoice resyntheses designed to disrupt conversational entrainment. 
+Ten native English-speaking listeners rated full two-speaker clips on 1--5 naturalness and rhythm/timing scales. 
+We aggregate ratings at the clip level and score only clips with exact acoustic-feature matches: 14 Original clips and 13 EmotiVoice TTS clips.
+For Original clips, we score all matched role-level segments, and for EmotiVoice TTS, we score only role-level segments marked as synthesized.
+
+\begin{table}[t]
+\centering
+\caption{Human-rated sanity check on exact feature-matched clips. Out-of-regime is the mean percentage of role-level metric comparisons outside matched 5th--95th percentile Seamless references; percentile distance is the mean absolute distance from the matched reference median percentile.}
+\label{tab:human_eval_reference_check}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l r c c r r}
+\toprule
+\textbf{Condition} & \textbf{Clips} & \textbf{Naturalness} & \textbf{Rhythm} & \textbf{Out \%} & \textbf{Pct. dist.} \\
+\midrule
+Original & 14 & $4.79 \pm 0.24$ & $4.74 \pm 0.43$ & 13.4 & 26.9 \\
+EmotiVoice TTS & 13 & $2.29 \pm 0.80$ & $2.44 \pm 0.54$ & 24.2 & 29.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:human_eval_reference_check} shows that the lower-rated EmotiVoice TTS clips also produce more matched-reference out-of-regime flags. 
+The effect is more concentrated in specific cues: synthesized segments are most often atypical for mean $F_0$ (69.0\% for EmotiVoice TTS vs. 20.2\% for Original) and pause ratio (22.9\% vs. 7.1\%). 
+This supports the intended use of the protocol as an interpretable cue-level plausibility check that complements human evaluation.
+
 \section{Limitations}\label{sec:limitations}
 This framework provides behavioral plausibility checks rather than a validated perceptual naturalness model. 
-The reference regimes and conditioning effects do not yet establish perceptual thresholds, nor do they map percentile deviations directly to user-rated naturalness or interaction quality. 
 Results are derived from a single English dyadic corpus. 
 Operating regions may shift with language, domain, recording conditions, and interaction setting. 
 Model-predicted age bin, arousal, dominance, and sex label are derived from Vox-Profile rather than ground-truth speaker-trait metadata, so observed stratification effects should be interpreted as model-conditioned annotations and validated against ground-truth metadata where available.
 The analysis uses a binary sex label predicted from voice, this label is an acoustic-model output and does not represent self-identified gender or non-binary identity categories.
-Future work should validate these regimes against human judgments and system outputs across multiple datasets and languages.
+Future work should validate these regimes against larger human-judgment studies and system outputs across multiple datasets and languages.
+The small human-rated check in Section~\ref{sec:human_eval_check} is encouraging but does not establish perceptual thresholds, nor does it map percentile deviations directly to user-rated naturalness or interaction quality. 
+Moreover, the audio quality was also slightly lower for EmotiVoice TTS (3.71 vs. 4.95), so this check does not completely isolate prosody and rhythm from synthesis artifacts. 
 
 \section*{Acknowledgment}
 
