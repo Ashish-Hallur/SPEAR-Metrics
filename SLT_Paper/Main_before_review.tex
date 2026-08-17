@@ -68,18 +68,19 @@ This gap is limiting for spoken dialogue evaluation, where a system may fall ins
 
 We frame large-scale conversational distributions as descriptive baselines and also an operational evaluation resource. 
 Using robust percentile-based $F_0$ measures and rhythm metrics from over 4{,}000 hours of English dyadic conversation, we make four contributions. 
-First, we construct matched reference regimes for conversational $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration. 
+First, we construct matched reference regimes for conversational $F_0$ mean, $F_0$ expressivity, speech rate, articulation rate, pause ratio, and mean pause duration\footnote{The code will be made publicly available upon acceptance.}. 
 Second, we show that pooled references can obscure systematic shifts associated with model-predicted sex label, model-predicted age bin, and model-predicted arousal and dominance scores. 
 Third, we define a simple evaluation procedure that extracts the same metrics from an S2S output waveform and reports percentile deviations or out-of-regime flags relative to the closest matched human reference stratum. 
 Fourth, we provide reproducible reference tables and an extraction/comparison protocol for speech-native behavioral plausibility checks in spoken dialogue systems.
 
 \section{Methods}
+\label{sec:methods}
 
 \subsection{Dataset}
 We analyze dyadic conversational speech from the Seamless Interaction dataset, a large-scale corpus of face-to-face interactions designed to capture natural conversational interactions.
 The released dataset contains 4,065.04 hours of interaction time, comprising 64,739 interactions segmented from 5,098 one-hour recording sessions involving 4,284 participants \cite{seamless_interaction}. 
 We use ``interaction'' to refer to one conversational segment within a session. 
-Each interaction yields two speaker channels, and all metrics are computed at the channel level. 
+Each interaction yields two speaker-channels, and all metrics are computed at the channel level. 
 The dataset includes Naturalistic interactions with untrained participants and Improvised interactions with trained actors, we later quantify whether these subsets differ enough to require separate reference regimes \cite{fusaroli_dialog_2014, wynn_conversational_2024}.
 
 \subsection{Prosodic Metrics}
@@ -286,7 +287,7 @@ For mean $F_0$, the total pooled flag rate is near 10\%, but the errors are dire
 This aligns with long-standing evidence that anatomical/physiological differences yield distinct habitual $F_0$ regimes across speakers \cite{traunmuller_acoustic_2000, titze_toward_1994}.
 
 Beyond this baseline conditioning, Figures~\ref{fig:prosody_arousal} and \ref{fig:prosody_dominance} show a consistent scaling of prosodic expressivity with interactional state. 
-In particular, $F_0$ SD and $F_0$ range increase monotonically across arousal and dominance sextiles obtained with VoxProfile. 
+In particular, $F_0$ SD and $F_0$ range increase monotonically across arousal and dominance sextiles obtained with Vox-Profile. 
 This matches prior work showing that natural speech tends to use a wider $F_0$ bandwidth in higher-activation emotional or interactional states, with larger pitch excursions when speakers are more activated or more socially assertive \cite{banziger_role_2005, banse1996acoustic, geng2020acoustic}. 
 For an S2S dialogue system, unusually narrow $F_0$ variation in high-arousal or high-dominance contexts may therefore indicate prosodic compression, even when mean $F_0$ falls within a typical range \cite{liu2021multiple}.
 Prosodic evaluation should therefore include expressivity-sensitive checks in addition to $F_0$ level, and interpret deviations relative to reference distributions stratified by arousal and dominance \cite{pell_emotional_2011, xu_speech_2005}. 
@@ -339,21 +340,21 @@ The protocol is therefore a behavioral plausibility check: it can flag prosodic 
 
 As a small external check, we applied the protocol to human-rated dyads from TRACE \cite{TRACE}, which includes original Seamless conversations and EmotiVoice resyntheses designed to disrupt conversational entrainment. 
 Ten native English-speaking listeners rated full two-speaker clips on 1--5 naturalness and rhythm/timing scales. 
-We aggregate ratings at the clip level and score only clips with exact acoustic-feature matches: 14 Original clips and 13 EmotiVoice TTS clips.
+We aggregate ratings at the clip level and score only clips that match the conditions listed in section \ref{sec:methods}: 14 Original clips and 13 EmotiVoice TTS clips.
 For Original clips, we score all matched role-level segments, and for EmotiVoice TTS, we score only role-level segments marked as synthesized.
 
 \begin{table}[t]
 \centering
-\caption{Human-rated sanity check on exact feature-matched clips. Out-of-regime is the mean percentage of role-level metric comparisons outside matched 5th--95th percentile Seamless references; percentile distance is the mean absolute distance from the matched reference median percentile.}
+\caption{Human-rated sanity check on exact feature-matched clips. Out-of-regime (OOR) is the mean percentage of role-level metric comparisons outside matched 5th--95th percentile Seamless references; percentile distance ($P_{dist}$) is the mean absolute distance from the matched reference median percentile.}
 \label{tab:human_eval_reference_check}
 \small
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{l r c c r r}
+\begin{tabular}{l c c c c c}
 \toprule
-\textbf{Condition} & \textbf{Clips} & \textbf{Naturalness} & \textbf{Rhythm} & \textbf{Out \%} & \textbf{Pct. dist.} \\
+\textbf{Condition} & \textbf{Clips} & \textbf{Naturalness} & \textbf{Rhythm} & \textbf{OOR} & \textbf{$P_{dist}$} \\
 \midrule
-Original & 14 & $4.79 \pm 0.24$ & $4.74 \pm 0.43$ & 13.4 & 26.9 \\
-EmotiVoice TTS & 13 & $2.29 \pm 0.80$ & $2.44 \pm 0.54$ & 24.2 & 29.5 \\
+Original & 14 & $4.79 \pm 0.24$ & $4.74 \pm 0.43$ & 13.4\% & 26.9 \\
+EmotiVoice TTS & 13 & $2.29 \pm 0.80$ & $2.44 \pm 0.54$ & 24.2\% & 29.5 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -366,7 +367,7 @@ This supports the intended use of the protocol as an interpretable cue-level pla
 This framework provides behavioral plausibility checks rather than a validated perceptual naturalness model. 
 Results are derived from a single English dyadic corpus. 
 Operating regions may shift with language, domain, recording conditions, and interaction setting. 
-Model-predicted age bin, arousal, dominance, and sex label are derived from Vox-Profile rather than ground-truth speaker-trait metadata, so observed stratification effects should be interpreted as model-conditioned annotations and validated against ground-truth metadata where available.
+Model-predicted age bin, arousal, dominance, and sex label are derived from Vox-Profile rather than ground-truth speaker trait metadata, so observed stratification effects should be interpreted as model-conditioned annotations and validated against ground-truth metadata where available.
 The analysis uses a binary sex label predicted from voice, this label is an acoustic-model output and does not represent self-identified gender or non-binary identity categories.
 Future work should validate these regimes against larger human-judgment studies and system outputs across multiple datasets and languages.
 The small human-rated check in Section~\ref{sec:human_eval_check} is encouraging but does not establish perceptual thresholds, nor does it map percentile deviations directly to user-rated naturalness or interaction quality. 
@@ -374,10 +375,12 @@ Moreover, the audio quality was also slightly lower for EmotiVoice TTS (3.71 vs.
 
 \section*{Acknowledgment}
 
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
+To be added after acceptance.
+
+\newpage
+
+\section{Generative AI Use Disclosure}
+The authors used Claude (Anthropic) to assist with grammar checking and proofreading the manuscript. These tools were not used to generate any scientific content, results, or conclusions. All authors reviewed and take full responsibility for the final content of this paper.
 
 \bibliographystyle{IEEEtran}
 \bibliography{newbib}
